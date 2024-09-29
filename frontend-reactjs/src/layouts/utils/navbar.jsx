@@ -1,7 +1,13 @@
 import ic_eye_open from "../../icons/ic-eye-open.png";
 import ic_eye_close from "../../icons/ic-eye-close.png";
 
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+
 export const Navbar = () => {
+  const navigate = useNavigate();
+  const { authState, updateAuthState, logout } = useAuth();
+
   return (
     <nav className="bg-primary border-b-2 border-gray-300">
       <div className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:space-x-4 lg:space-y-0 text-white">
@@ -27,7 +33,10 @@ export const Navbar = () => {
         </div>
         {/* menu */}
         <div className="flex flex-col space-y-4 lg:flex-row lg:flex-grow lg:space-x-4 lg:space-y-0 lg:pl-8 pb-2 lg:py-0">
-          <div className="flex flex-row justify-center items-center  bg-secondary px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
+          <div
+            onClick={(e) => navigate("/home")}
+            className="flex flex-row justify-center items-center  bg-secondary px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+          >
             Tin tức
           </div>
 
@@ -36,9 +45,28 @@ export const Navbar = () => {
           </div>
 
           <div className="flex flex-row justify-center items-center lg:justify-end flex-grow lg:pr-8 ">
-            <button className="w-full lg:w-fit bg-tertiary font-bold text-white px-3 py-2 rounded-lg">
-              Đăng Nhập
-            </button>
+            {authState ? (
+              <h3 className="text-white italic lg:block hidden mr-12">
+                Xin chào {authState.username}
+              </h3>
+            ) : (
+              ""
+            )}
+            {authState ? (
+              <button
+                onClick={(e) => logout()}
+                className="w-full lg:w-fit bg-secondary font-bold text-white px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+              >
+                Đăng Xuất
+              </button>
+            ) : (
+              <button
+                onClick={(e) => navigate("/login")}
+                className="w-full lg:w-fit bg-secondary font-bold text-white px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+              >
+                Đăng Nhập
+              </button>
+            )}
           </div>
         </div>
       </div>
