@@ -69,14 +69,4 @@ public class Account {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "accountId=" + accountId +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", userId=" + userId +
-                '}';
-    }
 }

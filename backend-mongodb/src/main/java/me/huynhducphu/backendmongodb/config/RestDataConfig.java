@@ -19,11 +19,10 @@ public class RestDataConfig implements RepositoryRestConfigurer {
         config.exposeIdsFor(Account.class);
         config.exposeIdsFor(Author.class);
 
-        // Cấu hình CORS để cho phép các yêu cầu từ frontend (localhost:3000)
-        cors.addMapping("/**") // Cho phép tất cả các endpoint
-                .allowedOrigins(theAllowOrigins) // Cho phép từ nguồn gốc này (localhost:3000)
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS") // Thêm OPTIONS cho preflight request
-                .allowedHeaders("*") // Cho phép tất cả các headers
-                .allowCredentials(true); // Cho phép gửi thông tin xác thực (cookies, headers xác thực, v.v.)
+        cors.addMapping("/**")
+                .allowedOrigins(theAllowOrigins)
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 }

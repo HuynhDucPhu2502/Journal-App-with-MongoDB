@@ -40,7 +40,10 @@ export const Navbar = () => {
             Tin tức
           </div>
 
-          <div className="flex flex-row justify-center items-center  bg-secondary px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
+          <div
+            onClick={(e) => navigate("/author")}
+            className="flex flex-row justify-center items-center  bg-secondary px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+          >
             Tác giả
           </div>
 

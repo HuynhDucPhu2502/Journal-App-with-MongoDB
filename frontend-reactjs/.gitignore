@@ -1,40 +1,23 @@
-# --- Node modules ---
-/node_modules/
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# --- Build outputs ---
-/build/
-/dist/
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
 
-# --- Environment variables ---
-/.env
-/.env.local
-/.env.development.local
-/.env.test.local
-/.env.production.local
+# testing
+/coverage
 
-# --- Logs ---
-*.log
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# --- Dependency lock files ---
-/package-lock.json
-/yarn.lock
-
-# --- Coverage ---
-/coverage/
-
-# --- IDEs and editors ---
-.vscode/
-.idea/
-*.iml
-*.ipr
-*.iws
-
-# --- OS system files ---
-.DS_Store
-Thumbs.db
-
-# --- Miscellaneous ---
-HELP.md

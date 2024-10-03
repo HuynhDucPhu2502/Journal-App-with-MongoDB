@@ -24,22 +24,22 @@ public class User {
 
     private String gender;
 
-    private String[] interests;
-
     private PhoneNumber[] phoneNumbers;
 
     private SocialLink[] socialLinks;
 
-    public User(String userId, String fullName, String email, LocalDate dob, String address, String gender, String[] interests, PhoneNumber[] phoneNumbers, SocialLink[] socialLinks) {
+    private boolean hasAvatar;
+
+    public User(String userId, String fullName, String email, String address, LocalDate dob, String gender, PhoneNumber[] phoneNumbers, SocialLink[] socialLinks, boolean hasAvatar) {
         this.userId = userId;
         this.fullName = fullName;
         this.email = email;
-        this.dob = dob;
         this.address = address;
+        this.dob = dob;
         this.gender = gender;
-        this.interests = interests;
         this.phoneNumbers = phoneNumbers;
         this.socialLinks = socialLinks;
+        this.hasAvatar = hasAvatar;
     }
 
     public User() {
@@ -105,13 +105,6 @@ public class User {
         this.gender = gender;
     }
 
-    public String[] getInterests() {
-        return interests;
-    }
-
-    public void setInterests(String[] interests) {
-        this.interests = interests;
-    }
 
     public PhoneNumber[] getPhoneNumbers() {
         return phoneNumbers;
@@ -129,18 +122,11 @@ public class User {
         this.socialLinks = socialLinks;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId='" + userId + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", email='" + email + '\'' +
-                ", dob=" + dob +
-                ", address='" + address + '\'' +
-                ", gender='" + gender + '\'' +
-                ", interests=" + Arrays.toString(interests) +
-                ", phoneNumbers=" + Arrays.toString(phoneNumbers) +
-                ", socialLinks=" + Arrays.toString(socialLinks) +
-                '}';
+    public boolean isHasAvatar() {
+        return hasAvatar;
+    }
+
+    public void setHasAvatar(boolean hasAvatar) {
+        this.hasAvatar = hasAvatar;
     }
 }

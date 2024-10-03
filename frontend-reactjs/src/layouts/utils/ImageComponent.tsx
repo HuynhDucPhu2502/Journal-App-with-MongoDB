@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export const ImageComponent = ({ filename }) => {
-  const [imageUrl, setImageUrl] = useState(null);
+// Định nghĩa kiểu cho props
+interface ImageComponentProps {
+  filename: string;
+}
+
+export const ImageComponent: React.FC<ImageComponentProps> = ({ filename }) => {
+  // Khai báo kiểu cho imageUrl là string hoặc null
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   useEffect(() => {
     // Gọi API lấy file từ server Spring Boot
@@ -14,7 +20,8 @@ export const ImageComponent = ({ filename }) => {
             responseType: "blob",
           }
         );
-        const url = URL.createObjectURL(new Blob([response.data]));
+        // Tạo URL từ blob và gán vào state
+        const url = URL.createObjectURL(response.data);
         setImageUrl(url);
       } catch (error) {
         console.error("Error fetching the image:", error);

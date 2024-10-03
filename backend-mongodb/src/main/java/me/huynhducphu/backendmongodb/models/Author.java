@@ -12,13 +12,13 @@ public class Author {
     private String authorId;
     private String userId;
     private String penName;
-    private String[] awards;
+    private String bio;
 
-    public Author(String authorId, String userId, String penName, String[] awards) {
+    public Author(String authorId, String userId, String penName, String bio) {
         this.authorId = authorId;
         this.userId = userId;
-        this.awards = awards;
         this.penName = penName;
+        this.bio = bio;
     }
 
     public Author() {
@@ -52,12 +52,12 @@ public class Author {
         this.userId = userId;
     }
 
-    public String[] getAwards() {
-        return awards;
+    public String getBio() {
+        return bio;
     }
 
-    public void setAwards(String[] awards) {
-        this.awards = awards;
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public String getPenName() {
@@ -66,15 +66,5 @@ public class Author {
 
     public void setPenName(String penName) {
         this.penName = penName;
-    }
-
-    @Override
-    public String toString() {
-        return "Author{" +
-                "authorId='" + authorId + '\'' +
-                ", userId='" + userId + '\'' +
-                ", penName='" + penName + '\'' +
-                ", awards=" + Arrays.toString(awards) +
-                '}';
     }
 }
