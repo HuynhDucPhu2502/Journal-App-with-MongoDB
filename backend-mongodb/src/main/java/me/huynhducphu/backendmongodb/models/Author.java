@@ -1,20 +1,24 @@
 package me.huynhducphu.backendmongodb.models;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Arrays;
 import java.util.Objects;
 
+@Document(collection = "Author")
 public class Author {
     @Id
     private String authorId;
     private String userId;
+    private String penName;
     private String[] awards;
 
-    public Author(String authorId, String userId, String[] awards) {
+    public Author(String authorId, String userId, String penName, String[] awards) {
         this.authorId = authorId;
         this.userId = userId;
         this.awards = awards;
+        this.penName = penName;
     }
 
     public Author() {
@@ -56,11 +60,20 @@ public class Author {
         this.awards = awards;
     }
 
+    public String getPenName() {
+        return penName;
+    }
+
+    public void setPenName(String penName) {
+        this.penName = penName;
+    }
+
     @Override
     public String toString() {
         return "Author{" +
                 "authorId='" + authorId + '\'' +
                 ", userId='" + userId + '\'' +
+                ", penName='" + penName + '\'' +
                 ", awards=" + Arrays.toString(awards) +
                 '}';
     }
