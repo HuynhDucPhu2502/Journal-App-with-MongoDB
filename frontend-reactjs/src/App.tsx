@@ -12,6 +12,7 @@ import {
 import { JournalPage } from "./layouts/journal-page/JournalPage";
 import { AuthProvider } from "./context/AuthContext";
 import { AuthorPage } from "./layouts/author-page/AuthorPage";
+import { AccountPage } from "./layouts/account-page/AccountPage";
 
 export const App = () => {
   return (
@@ -24,6 +25,7 @@ export const App = () => {
               <Route path="/login" element={<LoginWidget />} />
               <Route path="/home" element={<JournalPage />}></Route>
               <Route path="/author" element={<AuthorPage />}></Route>
+              <Route path="/account" element={<AccountPage />}></Route>
               <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
           </div>

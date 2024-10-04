@@ -4,9 +4,13 @@ import axios from "axios";
 // Định nghĩa kiểu cho props
 interface ImageComponentProps {
   filename: string;
+  className?: string; // Thêm className (có thể có hoặc không)
 }
 
-export const ImageComponent: React.FC<ImageComponentProps> = ({ filename }) => {
+export const ImageComponent: React.FC<ImageComponentProps> = ({
+  filename,
+  className,
+}) => {
   // Khai báo kiểu cho imageUrl là string hoặc null
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
@@ -32,8 +36,12 @@ export const ImageComponent: React.FC<ImageComponentProps> = ({ filename }) => {
   }, [filename]);
 
   return (
-    <div>
-      {imageUrl ? <img src={imageUrl} alt={filename} /> : <p>Loading...</p>}
+    <div className="flex justify-center items-center">
+      {imageUrl ? (
+        <img src={imageUrl} alt={filename} className={className} /> // Thêm className vào img
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };

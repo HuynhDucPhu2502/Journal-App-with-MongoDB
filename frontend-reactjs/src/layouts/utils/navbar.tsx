@@ -47,6 +47,17 @@ export const Navbar = () => {
             Tác giả
           </div>
 
+          {authState ? (
+            <div
+              onClick={(e) => navigate("/account")}
+              className="flex flex-row justify-center items-center  bg-secondary px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+            >
+              Tài khoản
+            </div>
+          ) : (
+            ""
+          )}
+
           <div className="flex flex-row justify-center items-center lg:justify-end flex-grow lg:pr-8 ">
             {authState ? (
               <h3 className="text-white italic lg:block hidden mr-12">
@@ -58,14 +69,14 @@ export const Navbar = () => {
             {authState ? (
               <button
                 onClick={(e) => logout()}
-                className="w-full lg:w-fit bg-secondary font-bold text-white px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+                className="w-full lg:w-fit bg-red-500 font-bold text-white px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
               >
                 Đăng Xuất
               </button>
             ) : (
               <button
                 onClick={(e) => navigate("/login")}
-                className="w-full lg:w-fit bg-secondary font-bold text-white px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+                className="w-full lg:w-fit bg-blue-800 font-bold text-white px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
               >
                 Đăng Nhập
               </button>

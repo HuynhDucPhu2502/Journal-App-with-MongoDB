@@ -143,12 +143,16 @@ export const LoginWidget = () => {
           </div>
         </div>
         <div className="flex flex-row justify-evenly items-center w-full mt-6">
-          <button className="bg-white rounded-lg py-2 px-8 hover:bg-primary hover:text-white transition-all delay-50 hover:shadow-lg">
+          <button className="bg-yellow-300  rounded-lg py-2 px-8 hover:bg-primary hover:text-white transition-all delay-50 hover:shadow-lg">
             Đăng Ký
           </button>
           <button
             onClick={handleLogin}
-            className="bg-accent rounded-lg py-2 px-8 hover:bg-primary hover:text-white transition-all delay-50 hover:shadow-lg"
+            className={`${
+              username && password
+                ? "bg-green-500 hover:bg-green-600 hover:shadow-lg transition-all delay-50"
+                : "bg-gray-400 cursor-not-allowed"
+            } rounded-lg py-2 px-8 text-white`}
           >
             Đăng Nhập
           </button>
