@@ -58,7 +58,6 @@ export const LoginWidget = () => {
 
         if (accountResponse.ok) {
           const accountResponseData = await accountResponse.json();
-          console.log("test 2");
           updateAuthState({
             username: accountResponseData.userName,
             accountId: accountResponseData.accountId,
@@ -67,7 +66,6 @@ export const LoginWidget = () => {
         }
       }
 
-      console.log(2);
       navigate("/home");
     } catch (error) {
       setErrorMessage("Không tải được dữ liệu máy chủ");

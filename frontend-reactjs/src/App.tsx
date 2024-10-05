@@ -1,6 +1,6 @@
 import "./App.css";
-import { Navbar } from "./layouts/utils/navbar";
-import { Footer } from "./layouts/utils/footer";
+import { Navbar } from "./layouts/utils/Navbar";
+import { Footer } from "./layouts/utils/Footer";
 import { LoginWidget } from "./layouts/auth-page/LoginWidget";
 
 import {
@@ -20,7 +20,7 @@ export const App = () => {
       <Router>
         <div className="flex flex-col h-screen">
           <Navbar />
-          <div className="flex-grow">
+          <div className="flex-grow relative">
             <Routes>
               <Route path="/login" element={<LoginWidget />} />
               <Route path="/home" element={<JournalPage />}></Route>
