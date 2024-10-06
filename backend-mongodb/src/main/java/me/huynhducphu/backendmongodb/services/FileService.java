@@ -1,6 +1,7 @@
 package me.huynhducphu.backendmongodb.services;
 
 import com.mongodb.client.gridfs.model.GridFSFile;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,5 +40,15 @@ public class FileService {
                 .contentType(MediaType.IMAGE_PNG)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
                 .body(resource);
+    }
+
+    public String uploadFile(MultipartFile file, String userId) throws IOException {
+        GridFSFile existingFile = gridFsTemplate.findOne(new Query(Criteria.where("filename").is(userId)));
+        if (existingFile != null) {
+            gridFsTemplate.delete(new Query(Criteria.where("filename").is(userId)));
+        }
+
+        ObjectId fileId = gridFsTemplate.store(file.getInputStream(), userId, file.getContentType());
+        return fileId.toString();
     }
 }

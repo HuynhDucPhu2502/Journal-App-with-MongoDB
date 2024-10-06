@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { Navigate, useNavigate } from "react-router-dom";
 import { ImageComponent } from "../utils/ImageComponent";
@@ -22,6 +22,10 @@ export const AccountPage = () => {
   const [infoMessage, setInfoMessage] = useState("");
   const [infoColor, setInfoColor] = useState("green");
 
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   useEffect(() => {
     if (!authState) navigate("/login");
     else {
@@ -42,6 +46,60 @@ export const AccountPage = () => {
       fetchUser().catch();
     }
   }, [authState, navigate, fetchStatus]);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    } else {
+      setSelectedImage(null);
+      setImagePreview(null);
+    }
+  };
+
+  const handleCancelImageChanging = () => {
+    setSelectedImage(null);
+    setImagePreview(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  const handleUploadAvatar = () => {
+    const updateAvatar = async () => {
+      if (!selectedImage || !authState) {
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("userId", authState.userId);
+      formData.append("avatar", selectedImage);
+
+      const response = await fetch(
+        "http://localhost:8080/api/users/uploadAvatar",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Upload failed");
+      }
+
+      setFetchStatus(!fetchStatus);
+      setInfoMessage("Ảnh đại diện đã được thay đổi thành công");
+      setInfoColor("bg-green-500");
+
+      handleCancelImageChanging();
+      setTimeout(() => {
+        setInfoMessage("");
+      }, 3000);
+    };
+
+    updateAvatar().catch();
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -83,14 +141,56 @@ export const AccountPage = () => {
       <div className="flex flex-col space-y-12 my-12 w-2/3 mx-auto">
         <div className="w-full mx-auto p-4 rounded shadow-lg">
           <h2 className="text-lg font-bold mb-4">1. Ảnh đại diện</h2>
-          {hasAvatar && authState ? (
+          {imagePreview ? (
+            <div className="flex justify-center items-center">
+              <img
+                src={imagePreview}
+                alt="Avatar Preview"
+                className="size-96 rounded-full object-cover border-2 border-gray-300"
+              />
+            </div>
+          ) : hasAvatar && authState ? (
             <ImageComponent
               filename={authState.userId}
-              className="w-2/5 rounded-full rounded-full object-cover border-2 border-gray-300"
+              className="size-96 rounded-full object-cover border-2 border-gray-300"
             />
           ) : (
-            <img src={ic_avatar} className="w-2/3"></img>
+            <img src={ic_avatar} className="w-2/3" alt="Default Avatar" />
           )}
+
+          <div className="my-12 flex flex-col justify-center items-center space-y-8">
+            <div className="flex flex-col justify-center items-center space-y-4">
+              <label htmlFor="file-upload" className="text-3xl text-blue-500 ">
+                Tải ảnh mới
+              </label>
+              <input
+                className="w-fit mx-auto"
+                type="file"
+                accept="image/*"
+                id="file-upload"
+                onChange={handleImageChange}
+                ref={fileInputRef}
+              />
+            </div>
+            <div
+              className={`flex flex-row justify-between items-center w-full space-x-4 ${
+                selectedImage ? "block" : "hidden"
+              }`}
+            >
+              <button
+                onClick={handleCancelImageChanging}
+                className="flex-grow text-center text-white bg-red-500 py-3 rounded-lg hover:bg-red-600"
+              >
+                Hủy thay đổi
+              </button>
+              <button
+                onClick={handleUploadAvatar}
+                className="flex-grow text-center text-white bg-green-500 py-3 rounded-lg hover:bg-green-600"
+              >
+                Thay đổi
+              </button>
+            </div>
+          </div>
         </div>
 
         <form
