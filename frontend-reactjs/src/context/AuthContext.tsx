@@ -1,9 +1,11 @@
 import { createContext, useContext, useState, ReactNode } from "react";
+import { Role } from "../models/enums/Role";
 
 interface AuthState {
   username: string;
   accountId: string;
   userId: string;
+  role: Role;
 }
 
 interface AuthContextType {

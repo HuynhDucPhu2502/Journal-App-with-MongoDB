@@ -1,14 +1,18 @@
 package me.huynhducphu.backendmongodb.responsemodels;
 
+import me.huynhducphu.backendmongodb.models.enums.Role;
+
 public class AccountResponseModel {
     private String accountId;
     private String userName;
     private String userId;
+    private Role role;
 
-    public AccountResponseModel(String accountId, String userName, String userId) {
+    public AccountResponseModel(String accountId, String userName, String userId, Role role) {
         this.accountId = accountId;
         this.userName = userName;
         this.userId = userId;
+        this.role = role;
     }
 
     public AccountResponseModel() {
@@ -38,5 +42,11 @@ public class AccountResponseModel {
         this.userId = userId;
     }
 
+    public Role getRole() {
+        return role;
+    }
 
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }

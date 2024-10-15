@@ -62,6 +62,7 @@ export const LoginWidget = () => {
             username: accountResponseData.userName,
             accountId: accountResponseData.accountId,
             userId: accountResponseData.userId,
+            role: accountResponseData.role,
           });
         }
       }

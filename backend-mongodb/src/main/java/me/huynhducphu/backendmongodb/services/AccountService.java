@@ -20,7 +20,8 @@ public class AccountService {
                 .map(account -> new AccountResponseModel(
                         account.getAccountId(),
                         account.getUserName(),
-                        account.getUserId()
+                        account.getUserId(),
+                        account.getRole()
                 ))
                 .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy tài khoản"));
     }

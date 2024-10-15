@@ -72,33 +72,40 @@ export const AccountPage = () => {
         return;
       }
 
-      const formData = new FormData();
-      formData.append("userId", authState.userId);
-      formData.append("avatar", selectedImage);
+      try {
+        const formData = new FormData();
+        formData.append("userId", authState.userId);
+        formData.append("avatar", selectedImage);
 
-      const response = await fetch(
-        "http://localhost:8080/api/users/uploadAvatar",
-        {
-          method: "POST",
-          body: formData,
+        const response = await fetch(
+          "http://localhost:8080/api/users/uploadAvatar",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Upload failed");
         }
-      );
 
-      if (!response.ok) {
-        throw new Error("Upload failed");
+        setFetchStatus(!fetchStatus);
+        setInfoMessage("Ảnh đại diện đã được thay đổi thành công");
+        setInfoColor("bg-green-500");
+
+        handleCancelImageChanging();
+
+        setTimeout(() => {
+          setInfoMessage("");
+        }, 3000);
+      } catch (error) {
+        console.error("Avatar upload error:", error);
+        setInfoMessage("Đã xảy ra lỗi khi thay đổi ảnh đại diện");
+        setInfoColor("bg-red-500");
       }
-
-      setFetchStatus(!fetchStatus);
-      setInfoMessage("Ảnh đại diện đã được thay đổi thành công");
-      setInfoColor("bg-green-500");
-
-      handleCancelImageChanging();
-      setTimeout(() => {
-        setInfoMessage("");
-      }, 3000);
     };
 
-    updateAvatar().catch();
+    updateAvatar();
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -110,7 +117,7 @@ export const AccountPage = () => {
         const requestOption = {
           method: "POST",
           headers: {
-            "Content-Type": "application/json", // Thêm header để chỉ định loại nội dung
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             userId: authState.userId,

@@ -1,5 +1,6 @@
 package me.huynhducphu.backendmongodb.models;
 
+import me.huynhducphu.backendmongodb.models.enums.Role;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -16,14 +17,18 @@ public class Account {
 
     private String userId;
 
-    public Account(String accountId, String userName, String password, String userId) {
+    private Role role;
+
+    public Account(String accountId, String userName, String password, String userId, Role role) {
         this.accountId = accountId;
         this.userName = userName;
         this.password = password;
         this.userId = userId;
+        this.role = role;
     }
 
     public Account() {
+        this.role = Role.MEMBER;
     }
 
     @Override
@@ -68,5 +73,13 @@ public class Account {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
