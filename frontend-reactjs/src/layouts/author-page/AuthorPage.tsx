@@ -1,7 +1,7 @@
 import ic_avatar from "../../icons/ic-avatar.png";
 
 import { useEffect, useState } from "react";
-import { Author } from "../../models/Author";
+import { Author } from "../../models/response-models/Author";
 import { ImageComponent } from "../utils/ImageComponent";
 
 export const AuthorPage = () => {
@@ -45,10 +45,10 @@ export const AuthorPage = () => {
               {author.hasAvatar ? (
                 <ImageComponent
                   filename={author.userId}
-                  className="w-2/3 rounded-full rounded-full object-cover border-2 border-gray-300"
+                  className="w-2/3 rounded-full object-cover border-2 border-gray-300"
                 />
               ) : (
-                <img src={ic_avatar} className="w-2/3"></img>
+                <img src={ic_avatar} className="w-2/3" alt=""></img>
               )}
             </div>
             <div className="flex flex-col items-center px-2 w-2/3">

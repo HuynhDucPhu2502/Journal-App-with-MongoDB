@@ -6,6 +6,7 @@ interface AuthState {
   accountId: string;
   userId: string;
   role: Role;
+  authorId?: string;
 }
 
 interface AuthContextType {

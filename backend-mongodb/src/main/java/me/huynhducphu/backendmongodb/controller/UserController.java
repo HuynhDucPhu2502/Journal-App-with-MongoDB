@@ -31,7 +31,7 @@ public class UserController {
     public ResponseEntity<String> uploadAvatar(@RequestParam("userId") String userId,
                                                @RequestParam("avatar") MultipartFile avatar) {
         try {
-            String fileId = fileService.uploadFile(avatar, userId);
+            String fileId = fileService.uploadUserFile(avatar, userId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

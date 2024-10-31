@@ -7,11 +7,13 @@ public class AccountResponseModel {
     private String userName;
     private String userId;
     private Role role;
+    private String authorId;
 
-    public AccountResponseModel(String accountId, String userName, String userId, Role role) {
+    public AccountResponseModel(String accountId, String userName, String userId, String authorId, Role role) {
         this.accountId = accountId;
         this.userName = userName;
         this.userId = userId;
+        this.authorId = authorId;
         this.role = role;
     }
 
@@ -48,5 +50,13 @@ public class AccountResponseModel {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 }

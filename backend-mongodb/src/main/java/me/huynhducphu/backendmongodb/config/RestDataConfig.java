@@ -1,8 +1,6 @@
 package me.huynhducphu.backendmongodb.config;
 
-import me.huynhducphu.backendmongodb.models.Account;
-import me.huynhducphu.backendmongodb.models.Author;
-import me.huynhducphu.backendmongodb.models.User;
+import me.huynhducphu.backendmongodb.models.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -18,6 +16,9 @@ public class RestDataConfig implements RepositoryRestConfigurer {
         config.exposeIdsFor(User.class);
         config.exposeIdsFor(Account.class);
         config.exposeIdsFor(Author.class);
+        config.exposeIdsFor(Category.class);
+        config.exposeIdsFor(Article.class);
+        config.exposeIdsFor(Comment.class);
 
         cors.addMapping("/**")
                 .allowedOrigins(theAllowOrigins)

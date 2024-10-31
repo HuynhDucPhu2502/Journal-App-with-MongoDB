@@ -16,4 +16,27 @@ public class Timestamps {
     public Timestamps() {
     }
 
+    public LocalDate getPublish() {
+        return publish;
+    }
+
+    public void setPublish(LocalDate publish) {
+        this.publish = publish;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDate getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

@@ -42,13 +42,23 @@ public class FileService {
                 .body(resource);
     }
 
-    public String uploadFile(MultipartFile file, String userId) throws IOException {
-        GridFSFile existingFile = gridFsTemplate.findOne(new Query(Criteria.where("filename").is(userId)));
+    public String uploadArticleFile(MultipartFile file, String articleId) throws IOException {
+        return uploadFile(file, articleId);
+    }
+
+    public String uploadUserFile(MultipartFile file, String userId) throws IOException {
+        return uploadFile(file, userId);
+    }
+
+    private String uploadFile(MultipartFile file, String id) throws IOException {
+        // Xóa file cũ nếu tồn tại
+        GridFSFile existingFile = gridFsTemplate.findOne(new Query(Criteria.where("filename").is(id)));
         if (existingFile != null) {
-            gridFsTemplate.delete(new Query(Criteria.where("filename").is(userId)));
+            gridFsTemplate.delete(new Query(Criteria.where("filename").is(id)));
         }
 
-        ObjectId fileId = gridFsTemplate.store(file.getInputStream(), userId, file.getContentType());
+        // Lưu file mới vào GridFS
+        ObjectId fileId = gridFsTemplate.store(file.getInputStream(), id, file.getContentType());
         return fileId.toString();
     }
 }

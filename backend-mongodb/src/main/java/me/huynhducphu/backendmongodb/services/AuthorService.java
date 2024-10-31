@@ -5,10 +5,12 @@ import me.huynhducphu.backendmongodb.dao.UserRepository;
 import me.huynhducphu.backendmongodb.models.Author;
 import me.huynhducphu.backendmongodb.models.User;
 import me.huynhducphu.backendmongodb.responsemodels.AuthorResponseModel;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,5 +38,10 @@ public class AuthorService {
 
             return responseModel;
         }).collect(Collectors.toList());
+    }
+
+    public Optional<Author> findAuthorByUserId(String userId) {
+        ObjectId objectId = new ObjectId(userId);
+        return authorRepository.findByUserId(objectId);
     }
 }

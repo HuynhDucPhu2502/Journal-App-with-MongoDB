@@ -3,10 +3,15 @@ import ic_eye_close from "../../icons/ic-eye-close.png";
 
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { Role } from "../../models/enums/Role";
 
 export const Navbar = () => {
   const navigate = useNavigate();
-  const { authState, updateAuthState, logout } = useAuth();
+  const { authState, logout } = useAuth();
+
+  console.log("AuthState:", authState); // Kiểm tra giá trị authState
+  console.log("Role:", authState?.role); // Kiểm tra role của user
+  console.log(authState?.role === Role.AUTHOR);
 
   return (
     <nav className="bg-primary border-b-2 border-gray-300">
@@ -37,6 +42,13 @@ export const Navbar = () => {
             onClick={(e) => navigate("/home")}
             className="flex flex-row justify-center items-center  bg-secondary px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
           >
+            Trang chủ
+          </div>
+
+          <div
+            onClick={(e) => navigate("/articles")}
+            className="flex flex-row justify-center items-center  bg-secondary px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+          >
             Tin tức
           </div>
 
@@ -47,18 +59,25 @@ export const Navbar = () => {
             Tác giả
           </div>
 
-          {authState ? (
+          <div
+            onClick={(e) => navigate("/category")}
+            className="flex flex-row justify-center items-center  bg-secondary px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+          >
+            Thể Loại
+          </div>
+
+          {authState && authState.role === Role.AUTHOR ? (
             <div
-              onClick={(e) => navigate("/account")}
-              className="flex flex-row justify-center items-center  bg-secondary px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+              onClick={(e) => navigate("/create-article-page")}
+              className="flex flex-row justify-center items-center  bg-green-500 px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
             >
-              Tài khoản
+              Tạo bài báo
             </div>
           ) : (
             ""
           )}
 
-          <div className="flex flex-row justify-center items-center lg:justify-end flex-grow lg:pr-8 ">
+          <div className="flex lg:flex-row flex-col justify-center items-center lg:justify-end lg:space-x-4 lg:space-y-0 space-y-4 flex-grow lg:pr-8 ">
             {authState ? (
               <h3 className="text-white italic lg:block hidden mr-12">
                 Xin chào {authState.username}
@@ -66,20 +85,32 @@ export const Navbar = () => {
             ) : (
               ""
             )}
+
             {authState ? (
-              <button
+              <div
+                onClick={(e) => navigate("/account")}
+                className="w-full lg:w-fit text-center bg-yellow-500 font-bold text-white px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+              >
+                Tài khoản
+              </div>
+            ) : (
+              ""
+            )}
+
+            {authState ? (
+              <div
                 onClick={(e) => logout()}
-                className="w-full lg:w-fit bg-red-500 font-bold text-white px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+                className="w-full lg:w-fit text-center bg-red-500 font-bold text-white px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
               >
                 Đăng Xuất
-              </button>
+              </div>
             ) : (
-              <button
+              <div
                 onClick={(e) => navigate("/login")}
-                className="w-full lg:w-fit bg-blue-800 font-bold text-white px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+                className="w-full lg:w-fit text-center bg-blue-800 font-bold text-white px-3 py-2 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
               >
                 Đăng Nhập
-              </button>
+              </div>
             )}
           </div>
         </div>

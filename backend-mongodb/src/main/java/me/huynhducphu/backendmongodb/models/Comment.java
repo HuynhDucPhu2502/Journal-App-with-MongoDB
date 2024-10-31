@@ -1,7 +1,6 @@
 package me.huynhducphu.backendmongodb.models;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDateTime;
 
 public class Comment {
@@ -10,14 +9,20 @@ public class Comment {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime commentDate;
 
-    public Comment(String content, LocalDateTime commentDate) {
+    private String articleId; // Dùng String thay vì ObjectId
+    private String userId; // Dùng String thay vì ObjectId
+
+    public Comment(String content, LocalDateTime commentDate, String articleId, String userId) {
         this.content = content;
         this.commentDate = commentDate;
+        this.articleId = articleId;
+        this.userId = userId;
     }
 
     public Comment() {
     }
 
+    // Getters và Setters
     public String getContent() {
         return content;
     }
@@ -34,11 +39,19 @@ public class Comment {
         this.commentDate = commentDate;
     }
 
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "content='" + content + '\'' +
-                ", commentDate=" + commentDate +
-                '}';
+    public String getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(String articleId) {
+        this.articleId = articleId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
