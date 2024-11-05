@@ -56,7 +56,7 @@ export const ArticleListPage: React.FC = () => {
             />
             <div className="flex flex-row justify-between my-4 mx-3">
               <p>Bình luận: {article.totalComment}</p>
-              <p>Thích: {article.totalComment}</p>
+              <p>Thích: {article.totalLike}</p>
             </div>
           </div>
         ))}
