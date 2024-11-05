@@ -1,5 +1,6 @@
 package me.huynhducphu.backendmongodb.services;
 
+import me.huynhducphu.backendmongodb.dao.ArticleRepository;
 import me.huynhducphu.backendmongodb.dao.CommentRepository;
 import me.huynhducphu.backendmongodb.dao.UserRepository;
 import me.huynhducphu.backendmongodb.models.Comment;
@@ -22,6 +23,9 @@ public class CommentService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ArticleRepository articleRepository;
+
     public Comment createComment(String content, String articleId, String userId) {
         Comment comment = new Comment(
                 content,
@@ -29,8 +33,17 @@ public class CommentService {
                 articleId,
                 userId
         );
-        return commentRepository.save(comment);
+
+        Comment savedComment = commentRepository.save(comment);
+
+        articleRepository.findById(articleId).ifPresent(article -> {
+            article.setTotalComment(article.getTotalComment() + 1);
+            articleRepository.save(article);
+        });
+
+        return savedComment;
     }
+
 
     public List<CommentResponse> getCommentsByArticleId(String articleId) {
         List<Comment> comments = commentRepository.findByArticleId(articleId);
